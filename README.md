@@ -1,2 +1,4 @@
 # RoomReservation.AuthService
-Part of &amp;amp;amp;quot;Room Reservation&amp;amp;amp;quot; project, which is responsible for users authorisation
+Part of Room Reservation, will be responsible for authorizing users on the system. It will manage JWT tokens and grant access to individual parts of the system based on user rights.
+
+based on: https://github.com/amigoscode/spring-boot-security-course
