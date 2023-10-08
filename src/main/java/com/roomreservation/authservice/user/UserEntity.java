@@ -24,16 +24,9 @@ public class UserEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
     private String email;
-
     private String password;
-
     private String roles; // np. "ROLE_USER,ROLE_ADMIN"
-
-    private String firstName;
-
-    private String lastName;
 
     @OneToMany(mappedBy = "user")
     private List<TokenEntity> tokens;

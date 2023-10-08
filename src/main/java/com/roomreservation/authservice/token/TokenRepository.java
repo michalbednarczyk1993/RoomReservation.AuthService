@@ -1,6 +1,6 @@
 package com.roomreservation.authservice.token;
 
-import com.roomreservation.authservice.token.TokenEntity;
+import com.roomreservation.authservice.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -17,5 +17,7 @@ public interface TokenRepository extends JpaRepository<TokenEntity, Integer> {
     List<TokenEntity> findAllValidTokensByUser(Integer id);
 
     Optional<TokenEntity> findByToken(String token);
+
+    UserEntity
 
 }

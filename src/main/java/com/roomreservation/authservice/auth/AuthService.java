@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.roomreservation.authservice.config.JwtService;
 import com.roomreservation.authservice.token.TokenEntity;
 import com.roomreservation.authservice.token.TokenRepository;
+import com.roomreservation.authservice.user.Permission;
 import com.roomreservation.authservice.user.UserEntity;
 import com.roomreservation.authservice.user.UserRepository;
 import org.springframework.http.HttpHeaders;
@@ -43,8 +44,6 @@ public class AuthService {
                 .roles(request.getRole())
                 .password(request.getPassword())
                 .email(request.getEmail())
-                .firstName(request.getFirstName())
-                .lastName(request.getLastName())
                 .build();
         user = userRepository.save(user);
         String accessToken = tokenProvider.generateToken(user);
@@ -79,6 +78,20 @@ public class AuthService {
                             if(token.isExpired() || token.isRevoked())
                                 throw new IllegalArgumentException("Invalid JWT token");
                             },
+                        () -> {
+                            throw new NoSuchElementException(); // TODO: trzeba zmapować na 404; nie ma takiego użytkownika
+                        });
+    }
+
+    public void verifyAccess(JwtAuthenticationResponseDto tokenRequest, Permission permission) {
+        tokenRepository.findByToken(tokenRequest.getAccessToken())
+                .ifPresentOrElse(
+                        token -> {
+                            if(token.isExpired() || token.isRevoked())
+                                throw new IllegalArgumentException("Invalid JWT token");
+                            else
+                                tokenRepository.
+                        },
                         () -> {
                             throw new NoSuchElementException(); // TODO: trzeba zmapować na 404; nie ma takiego użytkownika
                         });
